@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 function ShowBooking() {
     const [booking, setBooking] = useState([])
+    const [bookingSearch, setBookingSearch] = useState()
 
     useEffect(()=>{
         axios.get('http://localhost:8083/hotel/booking/getAll')
@@ -11,21 +12,20 @@ function ShowBooking() {
     },[])
 
 
-    // function handleDelete(roomNo) {
-    //     const confirm = window.confirm('Would you like to delete?');
-    //     if (confirm) {
-    //         axios.delete('http://localhost:8083/hotel/booking/' + bookingId)
-    //             .then(response => {
-    //                 alert('Room deleted')
-    //                 window.location.reload();
-    //             })
-    //     }
-    // }
+    function handleDelete(bookingId) {
+        const confirm = window.confirm('Would you like to delete?');
+        if (confirm) {
+            axios.delete('http://localhost:8083/hotel/booking/delete/' + bookingId)
+                .then(response => {
+                    alert('Booking deleted')
+                    window.location.reload();
+                })
+        }
+    }
 
     return (
         <div className='container mt-5'>
             <h3>Booking</h3>
-            {/* <Link to={'/addRoom'} className='btn btn-success my-3'>Add Room</Link> */}
             <table className='table'>
                 <thead>
                     <tr>
@@ -39,6 +39,7 @@ function ShowBooking() {
                         <th>No of Children</th>
                         <th>CheckIn Date</th>
                         <th>CheckOut Date</th>
+                        <th>No of Days</th>
                         <th>Room No</th>
                     </tr>
                 </thead>
@@ -53,18 +54,25 @@ function ShowBooking() {
                         <td>{b.bookingGovtIdNo}</td>
                         <td>{b.bookingAdult}</td>
                         <td>{b.bookingChild}</td>
-                        <td>{b.bookingDays}</td>
+                        <td>{b.bookingCheckIn}</td>
                         <td>{b.bookingCheckOut}</td>
                         <td>{b.bookingDays}</td>
                         <td>{b.room.id}</td>
-                        
-                        {/* <td>
-                            <button className='btn btn-danger' onClick={e => handleDelete(s.staffEmailId)}>Delete</button>
-                        </td> */}
+                        <td>
+                        <button className='btn btn-danger' onClick={e => handleDelete(b.bookingId)}>Delete</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
         </table>
+
+        <div>
+                <label htmlFor='BookingId' >Booking Id</label>
+                <input type='number' className='form-control' name='bookingId' value={bookingSearch}
+                    onChange={e => setBookingSearch(e.target.value)}
+                />
+                <Link to={`/searchBooking/${bookingSearch}`} className='btn btn-info' style={{ float: 'right' }}>Search Booking</Link>
+            </div>
     </div>
     )
 }

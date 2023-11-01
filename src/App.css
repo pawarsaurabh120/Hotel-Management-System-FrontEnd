@@ -1,10 +1,6 @@
-/* .App2 {
-  display: flex;
-    justify-content: center;
-    align-items: center;
-  height: 90vh;
-  background-image: url('C:\Users\SAURAPAW\Online Hotel Management System Files\Hotel Management System Frontend\hotelmanagementsystem\src\images\HomePage.jpg');
+
+.App{
+  height: 100vh;
+  background-image: url("images/HomePage.jpg");
   background-size: cover;
-} */
-
-
+}

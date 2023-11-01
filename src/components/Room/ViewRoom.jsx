@@ -1,38 +1,48 @@
-import React, { useState } from "react"
-import { useParams } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
-function ViewRoom(){
+function ViewRoom() {
 
-    // const { id } = useParams()
-    // const [room, setRoom] = useState({})
+    const [room, setRoom] = useState([])
 
+    useEffect(() => {
+        axios.get('http://localhost:8082/hotel/room/avilableRooms')
+            .then((response) => { setRoom(response.data) })
+    }, [])
 
-    // useEffect(() => {
-    //     if(roomStatus === 'Avilable')
-    //     axios.get(`http://localhost:8082/hotel/room/${id}`)
-    //         .then(response => {setRoom(response.data);
-    //             console.log(response.data);
-    //         })
-    //         .catch(error => console.log(error))
-    // }, [id])
-
-    return(
-        // <div>
-        //     <div div className="card" style={{width: '18rem'}} >
-        //         <div className="card-body">
-        //             <h5 className="card-title">Room Details</h5>
-        //             <p>Room No: {room.id}</p>
-        //             <p>Room Capacity: {room.roomCapacity}</p>
-        //             <p>Room Type: {room.roomType}</p>
-        //             <p>Room Status: {room.roomStatus}</p>
-        //             <Link to='/addBooking' className='btn btn-secondary'>BookRoom</Link>
-        //         </div>
-        //     </div >
-        // </div>
-        <h3>ViewRoom For Receptionist</h3>
-
+    return (
+        <div>
+            <h4>Receptionist View Room</h4>
+            <div>
+            <table className='table'>
+                <thead>
+                    <tr>
+                        <th>Room No</th>
+                        <th>Room Capacity</th>
+                        <th>Room Type</th>
+                        <th>Room Status</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {room.map((r) => (
+                        <tr key={r.id}>
+                            <td>{r.id}</td>
+                            <td>{r.roomCapacity}</td>
+                            <td>{r.roomType}</td>
+                            <td>{r.roomStatus}</td>
+                            <td>{r.roomAmount}</td>
+                            <td>
+                                <Link to={`/addBooking/${r.id}`} className='btn btn-success my-3'>Book</Link>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+        </div>
     )
-
 }
 
 export default ViewRoom

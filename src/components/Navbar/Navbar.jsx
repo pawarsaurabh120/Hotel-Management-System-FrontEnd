@@ -20,7 +20,7 @@ function Navbar() {
 
   useEffect(() => {
     let staff = JSON.parse(localStorage.getItem("UserData"));
-    if(staff!=null){
+    if (staff != null) {
       setRole(staff.role);
     }
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));
@@ -44,12 +44,7 @@ function Navbar() {
           {isLoggedIn === "true" ? (
             <>
               <li className="nav-item">
-                <Link
-                  className="navbarMenu"
-                  onClick={logout}
-                  style={linkStyle}
-                  to="/ownerlogin"
-                >
+                <Link className="navbarMenu" onClick={logout} style={linkStyle} to="/login">
                   LogOut
                 </Link>
               </li>
@@ -58,51 +53,41 @@ function Navbar() {
                   Profile
                 </Link>
               </li>
-              //Owner
+              {/* Owner */}
               {role === 'OWNER' ? (
-                <><li className="nav-item">
-                  <Link className="navbarMenu" style={linkStyle} to="/showStaff">
-                    Staff
-                  </Link>
-                </li><li className="nav-item">
+                <>
+                <li className="nav-item">
                     <Link className="navbarMenu" style={linkStyle} to="/showRoom">
                       Room
                     </Link>
                   </li><li className="nav-item">
-                    <Link
-                      className="navbarMenu"
-                      style={linkStyle}
-                      to="/showBooking"
-                    >
+                    <Link className="navbarMenu" style={linkStyle}  to="/showBooking">
                       Booking
                     </Link>
-                  </li></>
+                  </li>
+                  <li className="nav-item">
+                  <Link className="navbarMenu" style={linkStyle} to="/showStaff">
+                    Staff
+                  </Link>
+                </li>
+                </>
               ) : undefined}
-              //Manager
+              {/* Manager */}
               {role === 'MANAGER' ? (
                 <>
-                  <li className="nav-item">
-                    <Link className="navbarMenu" style={linkStyle} to="/viewStaff">
-                      Staff
-                    </Link>
-                  </li>
                   <li className="nav-item">
                     <Link className="navbarMenu" style={linkStyle} to="/showRoom">
                       Room
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="navbarMenu"
-                      style={linkStyle}
-                      to="/showBooking"
-                    >
+                    <Link className="navbarMenu" style={linkStyle} to="/showBooking">
                       Booking
                     </Link>
                   </li>
                 </>
               ) : undefined}
-              //Receptionist
+              {/* Receptionist */}
               {role === 'RECEPTIONIST' ? (
                 <>
                   <li className="nav-item">
@@ -111,11 +96,7 @@ function Navbar() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="navbarMenu"
-                      style={linkStyle}
-                      to="/showBooking"
-                    >
+                    <Link className="navbarMenu" style={linkStyle} to="/showBooking">
                       Booking
                     </Link>
                   </li>
@@ -124,7 +105,7 @@ function Navbar() {
             </>
           ) :
             <li className="nav-item">
-              <Link className="navbarMenu" style={linkStyle} to="/ownerlogin">
+              <Link className="navbarMenu" style={linkStyle} to="/login">
                 LogIn
               </Link>
             </li>
